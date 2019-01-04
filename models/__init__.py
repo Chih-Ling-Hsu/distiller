@@ -19,6 +19,7 @@
 import torch
 import torchvision.models as torch_models
 import models.cifar10 as cifar10_models
+import models.cinic10 as cinic10_models
 import models.imagenet as imagenet_extra_models
 
 import logging
@@ -34,6 +35,9 @@ IMAGENET_MODEL_NAMES.extend(sorted(name for name in imagenet_extra_models.__dict
 CIFAR10_MODEL_NAMES = sorted(name for name in cifar10_models.__dict__
                              if name.islower() and not name.startswith("__")
                              and callable(cifar10_models.__dict__[name]))
+CINIC10_MODEL_NAMES = sorted(name for name in cinic10_models.__dict__
+                             if name.islower() and not name.startswith("__")
+                             and callable(cinic10_models.__dict__[name]))
 
 ALL_MODEL_NAMES = sorted(set(IMAGENET_MODEL_NAMES + CIFAR10_MODEL_NAMES))
 
@@ -66,6 +70,11 @@ def create_model(pretrained, dataset, arch, parallel=True, device_ids=None):
         assert arch in cifar10_models.__dict__, "Model %s is not supported for dataset CIFAR10" % arch
         assert not pretrained, "Model %s (CIFAR10) does not have a pretrained model" % arch
         model = cifar10_models.__dict__[arch]()
+    elif dataset == 'cinic10':
+        msglogger.info("=> creating %s model for CINIC10" % arch)
+        assert arch in cinic10_models.__dict__, "Model %s is not supported for dataset CINIC10" % arch
+        assert not pretrained, "Model %s (CINIC10) does not have a pretrained model" % arch
+        model = cinic10_models.__dict__[arch]()
     else:
         print("FATAL ERROR: create_model does not support models for dataset %s" % dataset)
         exit()
@@ -75,5 +84,9 @@ def create_model(pretrained, dataset, arch, parallel=True, device_ids=None):
     elif parallel:
         model = torch.nn.DataParallel(model, device_ids=device_ids)
 
+    # explicitly add a softmax layer, because it is useful when exporting to ONNX
+    model.original_forward = model.forward
+    softmax = torch.nn.Softmax(dim=1)
+    model.forward = lambda input: softmax(model.original_forward(input))
     model.cuda()
     return model
