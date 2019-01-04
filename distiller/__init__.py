@@ -27,7 +27,7 @@ from .knowledge_distillation import KnowledgeDistillationPolicy, DistillationLos
 
 
 del dict_config
-del thinning
+#del thinning
 
 # Distiller version
 __version__ = "0.3.0-pre"

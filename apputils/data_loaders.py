@@ -26,7 +26,7 @@ import torchvision.datasets as datasets
 from torch.utils.data.sampler import SubsetRandomSampler
 import numpy as np
 
-DATASETS_NAMES = ['imagenet', 'cifar10']
+DATASETS_NAMES = ['imagenet', 'cifar10', 'cinic10']
 
 
 def load_data(dataset, data_dir, batch_size, workers, valid_size=0.1, deterministic=False):
@@ -71,12 +71,12 @@ def cinic10_load_data(data_dir, batch_size, num_workers, valid_size=0.1, determi
         transforms.RandomCrop(32, padding=4),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.47889522, 0.47227842, 0.43047404],  std=[0.24205776, 0.23828046, 0.25874835)
+        transforms.Normalize(mean=[0.47889522, 0.47227842, 0.43047404],  std=[0.24205776, 0.23828046, 0.25874835])
     ])
 
     transform_test = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.47889522, 0.47227842, 0.43047404],  std=[0.24205776, 0.23828046, 0.25874835)
+        transforms.Normalize(mean=[0.47889522, 0.47227842, 0.43047404],  std=[0.24205776, 0.23828046, 0.25874835])
     ])
 
     #train_dataset = datasets.CIFAR10(root=data_dir, train=True,
