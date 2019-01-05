@@ -38,14 +38,14 @@ extensions:
 policies:
   - pruner:
       instance_name : low_pruner
-    starting_epoch: 300
-    ending_epoch: 320
+    starting_epoch: 0
+    ending_epoch: 100
     frequency: 2
 
   - pruner:
       instance_name : fine_pruner
-    starting_epoch: 320
-    ending_epoch: 340
+    starting_epoch: 0
+    ending_epoch: 100
     frequency: 2
   # Currently the thinner is disabled until the end, because it interacts with the sparsity
   # goals of the L1RankedStructureParameterPruner_AGP.
@@ -64,5 +64,5 @@ policies:
   - lr_scheduler:
       instance_name: pruning_lr
     starting_epoch: 0
-    ending_epoch: 520
+    ending_epoch: 300
     frequency: 1
