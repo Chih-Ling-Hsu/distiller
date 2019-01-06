@@ -22,7 +22,7 @@ from .scheduler import *
 from .sensitivity import *
 from .directives import *
 from .policy import *
-from .thinning import *
+#from .thinning import *
 from .knowledge_distillation import KnowledgeDistillationPolicy, DistillationLossWeights
 
 
