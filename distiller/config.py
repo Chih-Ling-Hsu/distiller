@@ -39,7 +39,7 @@ import json
 import inspect
 from torch.optim.lr_scheduler import *
 import distiller
-#from distiller.thinning import *
+from distiller.thinning import *
 from distiller.pruning import *
 from distiller.regularization import *
 from distiller.learning_rate import *

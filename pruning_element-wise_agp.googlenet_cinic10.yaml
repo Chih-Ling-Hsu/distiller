@@ -9,13 +9,20 @@ pruners:
       module.b3.b3.0.weight: Filters
       module.b3.b3.3.weight: Filters
       module.b3.b3.6.weight: Filters
+      module.a3.b2.0.weight: Filters
+      module.a3.b2.3.weight: Filters
+      module.a3.b3.0.weight: Filters
+      module.a3.b3.3.weight: Filters
+      module.a3.b3.6.weight: Filters
 
   fine_pruner:
     class:  AutomatedGradualPruner
     initial_sparsity : 0.05
     final_sparsity: 0.70
-    weights: [module.a5.b2.0.weight, module.a5.b2.3.weight, module.a5.b3.0.weight, module.a5.b3.3.weight, 
-              module.a5.b3.6.weight]
+    weights: [module.d4.b2.0.weight, module.d4.b2.3.weight, module.d4.b3.0.weight, 
+              module.d4.b3.3.weight, module.d4.b3.6.weight, 
+              module.a5.b2.0.weight, module.a5.b2.3.weight, module.a5.b3.0.weight, 
+              module.a5.b3.3.weight, module.a5.b3.6.weight]
 
 lr_schedulers:
   pruning_lr:
